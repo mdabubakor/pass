@@ -1,6 +1,10 @@
 import React, { useEffect,  useState } from "react";
 import {IoPersonAddSharp} from 'react-icons/io5'
-import {FaEye, FaEyeSlash} from 'react-icons/fa'
+import {FaCopy, FaEye, FaEyeSlash} from 'react-icons/fa'
+
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Manager = () => {
@@ -16,13 +20,27 @@ const Manager = () => {
       setpasswordArray ( JSON.parse(passwords))
     }
   },[]) 
+
+  const copyText=(text)=>{
+    toast('🦄 Copy To Clipbord!', {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      
+      });
+    navigator.clipboard.writeText(text)
+  }
   
 const handelpass=(e)=>{
   setPassData({...passdata,[e.target.name]: e.target.value});
   
 }
 const savepass =()=>{
-
   setpasswordArray(...passwordArray,passdata)
   localStorage.setItem("password",JSON.stringify([...passwordArray,passdata]))
   console.log([...passwordArray,passdata]);
@@ -35,7 +53,21 @@ const savepass =()=>{
   
   return (
   <>
-
+<ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+transition= "Bounce"
+/>
+{/* Same as */}
+<ToastContainer />
   <div className="container mx-auto max-w-2xl py-5">
     <h1 className="text-zinc-500 text-4xl font-bold text-center">
     <span className='text-green-700'>&lt;</span>
@@ -82,7 +114,9 @@ const savepass =()=>{
     <tr>
       <th className="py-2">Site</th>
       <th className="py-2">UserName</th>
-      <th className="py-2">Password</th>
+      <th className="py-2">Password
+      
+      </th>
     </tr>
   </thead>
   <tbody className="">
@@ -91,7 +125,9 @@ const savepass =()=>{
 
       <td className=" py-2 border  text-center w-32 "> <a href={item.site} target='_blank'>{item.site}</a> </td>
       <td className=" py-2 border  text-center w-32">{item.username}</td>
-      <td className=" py-2 border  text-center w-32">{item.password}</td>
+      <td className=" py-2 border  text-center text-xl w-32 relative  ">{item.password} <div>
+      <FaCopy onClick={()=>copyText(item.password)} className="absolute left-0 top-3  px-1 "/>
+        </div></td>
     </tr>
     })}
  
