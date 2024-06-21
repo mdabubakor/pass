@@ -22,7 +22,7 @@ const Manager = () => {
   },[]) 
 
   const copyText=(text)=>{
-    toast('🦄 Copy To Clipbord!', {
+    toast.success('🦄 Copy To Clipbord!', {
       position: "top-right",
       autoClose: 4000,
       hideProgressBar: false,
@@ -109,9 +109,9 @@ transition= "Bounce"
       passwordArray.length === 0 && <div>No Password to Show</div>
      }
      {passwordArray.length !=0 &&
-    <table className="md:table-fixed table-auto text-zinc-600 text-lg font-semibold w-full rounded-lg overflow-hidden ">
+    <table className=" table-auto text-zinc-600 text-lg font-semibold w-full rounded-lg overflow-hidden ">
   <thead className="bg-green-900 text-white">
-    <tr>
+    <tr className="">
       <th className="py-2">Site</th>
       <th className="py-2">UserName</th>
       <th className="py-2">Password
@@ -121,13 +121,13 @@ transition= "Bounce"
   </thead>
   <tbody className="">
     {passwordArray.map((item, index)=>{
-      return <tr key={index}>
+      return <tr key={index} className="  ">
 
       <td className=" py-2 border  text-center w-32 "> <a href={item.site} target='_blank'>{item.site}</a> </td>
       <td className=" py-2 border  text-center w-32">{item.username}</td>
-      <td className=" py-2 border  text-center text-xl w-32 relative  ">{item.password} <div>
-      <FaCopy onClick={()=>copyText(item.password)} className="absolute left-0 top-3  px-1 "/>
-        </div></td>
+      <td className=" py-2 px-10 border  text-center w-32 relative tracking-wide  ">{item.password} 
+      <FaCopy onClick={()=>copyText(item.password)} className="absolute  text-2xl left-0  top-3 ps-2  "/>
+       </td>
     </tr>
     })}
  
